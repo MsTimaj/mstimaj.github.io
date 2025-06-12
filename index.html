@@ -7,69 +7,134 @@
   <style>
     body {
       margin: 0;
-      overflow: hidden;
-      background: black;
+      overflow-x: hidden;
+      background: #0A0A0F;
       font-family: 'Fira Code', monospace;
       color: #00FF9D;
     }
+
     canvas {
       position: fixed;
       top: 0;
       left: 0;
       z-index: 0;
     }
-    .content {
+
+    .container {
       position: relative;
       z-index: 1;
-      text-align: center;
-      padding: 20vh 10px;
+      padding: 4rem 1rem;
+      max-width: 900px;
+      margin: auto;
     }
-    h1 {
-      font-size: 3rem;
+
+    h1, h2 {
+      text-align: center;
+      color: #00FF9D;
       text-shadow: 0 0 10px #00FF9D;
     }
-    p {
-      font-size: 1.25rem;
-      color: #b0ffdd;
+
+    p, li {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #B3B3B3;
     }
-    .links a {
-      display: inline-block;
-      margin: 1rem;
+
+    blockquote {
+      border-left: 4px solid #00FF9D;
+      padding-left: 1rem;
+      margin: 2rem 0;
+      font-style: italic;
       color: #00FF9D;
-      text-decoration: none;
-      border: 1px solid #00FF9D;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      transition: 0.3s;
     }
-    .links a:hover {
-      background: #00FF9D;
-      color: black;
-      box-shadow: 0 0 15px #00FF9D;
+
+    .badges, .links {
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .badges img, .links img {
+      margin: 0.4rem;
+    }
+
+    .intro-text {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .matrix-title img {
+      width: 100%;
+      max-width: 700px;
     }
   </style>
 </head>
 <body>
   <canvas id="matrixCanvas"></canvas>
 
-  <div class="content">
-    <h1>MsTimaj</h1>
-    <p>Tech for humanity • Equity through code • AI with purpose</p>
+  <div class="container">
+    <div class="matrix-title">
+      <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=40&pause=1000&color=00FF9D&center=true&vCenter=true&random=false&width=600&height=100&lines=Hi%2C+I'm+MsTimaj;Technology+for+Humanity;Building+a+Better+Future" alt="Typing SVG" />
+    </div>
+
+    <div class="intro-text">
+      <img src="https://media.tenor.com/IeQ9YzjdRAAAAAAC/matrix-code.gif" width="600" alt="Matrix code rain" />
+    </div>
+
+    <h2>🌌 Vision & Mission</h2>
+    <p class="intro-text">👾 Building human-centered tech systems rooted in equity, environment, and ethical AI.</p>
+
+    <h2>🧠 Technical Strengths</h2>
+    <ul>
+      <li>✨ <strong>Machine Learning & AI</strong>: Classification, NLP, logic chains, prompt engineering</li>
+      <li>📊 <strong>Data Engineering</strong>: SQL, ETL pipelines, structured/unstructured datasets, transformation</li>
+      <li>🧱 <strong>Full-Stack Development</strong>: HTML, CSS, JavaScript, Python, WordPress, REST APIs</li>
+      <li>📦 <strong>Tooling & Platforms</strong>: VS Code, Cursor, Claude, GPT-4o, Ollama, n8n, JupyterLab</li>
+      <li>🔐 <strong>Security & Infrastructure</strong>: Network hardening, local dev with XAMPP, privacy-by-design</li>
+      <li>📈 <strong>Visualization</strong>: Data storytelling, charts, timelines, bias mapping</li>
+    </ul>
+
+    <h2>🛠️ Current Stack</h2>
+    <div class="badges">
+      <img src="https://img.shields.io/badge/HTML5-0A0A0F?style=for-the-badge&logo=html5&logoColor=00FF9D" />
+      <img src="https://img.shields.io/badge/CSS3-0A0A0F?style=for-the-badge&logo=css3&logoColor=00FF9D" />
+      <img src="https://img.shields.io/badge/JavaScript-0A0A0F?style=for-the-badge&logo=javascript&logoColor=00FF9D" />
+      <img src="https://img.shields.io/badge/Python-0A0A0F?style=for-the-badge&logo=python&logoColor=00FF9D" />
+      <img src="https://img.shields.io/badge/MySQL-0A0A0F?style=for-the-badge&logo=mysql&logoColor=00FF9D" />
+      <img src="https://img.shields.io/badge/AI/ML-0A0A0F?style=for-the-badge&logo=tensorflow&logoColor=00FF9D" />
+    </div>
+
+    <h2>😄 About Me</h2>
+    <p>🌍 Global Citizen | 🛠 System Reformer | 🎯 Mission-Driven</p>
+    <p>💬 I speak in code, but I build in empathy.</p>
+
+    <blockquote>
+      <em>“Tech should serve humanity — not the other way around.”</em>
+    </blockquote>
+    <blockquote>
+      “Like someone left to debug a system they didn’t build, I’ve had to trace the corruption and correct what others kept dismissing.”
+    </blockquote>
+
+    <h2>📫 Connect</h2>
     <div class="links">
-      <a href="https://github.com/MsTimaj" target="_blank">GitHub</a>
-      <a href="https://mstimaj.com" target="_blank">Website</a>
-      <a href="mailto:connect@mstimaj.com">Email</a>
+      <a href="mailto:connect@mstimaj.com">
+        <img src="https://img.shields.io/badge/Email-0A0A0F?style=for-the-badge&logo=gmail&logoColor=00FF9D" />
+      </a>
+      <a href="https://mstimaj.com" target="_blank">
+        <img src="https://img.shields.io/badge/Website-0A0A0F?style=for-the-badge&logo=About.me&logoColor=00FF9D" />
+      </a>
+      <a href="https://linkedin.com/in/mstimaj" target="_blank">
+        <img src="https://img.shields.io/badge/LinkedIn-0A0A0F?style=for-the-badge&logo=linkedin&logoColor=00FF9D" />
+      </a>
     </div>
   </div>
 
   <script>
     const canvas = document.getElementById('matrixCanvas');
     const ctx = canvas.getContext('2d');
-
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const letters = "アァイィウヴエオカガキギクグケゲコゴサシスズセソタチッツヅテトナニヌネノハヒフヘホマミムメモラリルレロワンABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const letters = "アァイィウヴエオカガキギクグケゲコゴサシスズセソタチッツヅテトABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
     const fontSize = 14;
     const columns = canvas.width / fontSize;
     const drops = Array.from({ length: columns }).fill(1);
@@ -85,7 +150,6 @@
         const text = letters[Math.floor(Math.random() * letters.length)];
         const x = i * fontSize;
         ctx.fillText(text, x, y * fontSize);
-
         if (y * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
