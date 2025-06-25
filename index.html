@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MsTimaj — Cyber Architect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      min-height: 100vh;
+      min-width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+      font-family: 'Fira Code', monospace;
+      color: #00FF9D;
+      position: relative;
+    }
+    #matrixCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .cyber-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 2;
+      background: repeating-linear-gradient(135deg, rgba(0,255,157,0.04) 0 2px, transparent 2px 40px);
+      mix-blend-mode: lighten;
+      animation: overlayMove 8s linear infinite alternate;
+    }
+    @keyframes overlayMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 100px 100px; }
+    }
+    .container {
+      position: relative;
+      z-index: 4;
+      max-width: 850px;
+      margin: auto;
+      padding: 2.5rem 2rem 2rem 2rem;
+      background: rgba(10, 10, 10, 0.92);
+      border-radius: 18px;
+      box-shadow: 0 0 40px #00FF9D55, 0 0 12px #ff00ff44;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 2px solid #00ff9d;
+      border-image: linear-gradient(90deg, #00ff9d 0%, #ff00ff 100%) 1;
+      overflow: hidden;
+      backdrop-filter: blur(2px);
+    }
+    .profile-header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .profile-image {
+      max-width: 200px;
+      border-radius: 50%;
+      box-shadow: 0 0 32px #00FF9D, 0 0 12px #ff00ff;
+      background: #111;
+      border: 4px solid #ff00ff;
+      margin-bottom: 1.2rem;
+      animation: floaty 3.5s ease-in-out infinite alternate;
+      transition: box-shadow 0.3s;
+    }
+    .profile-image:hover {
+      box-shadow: 0 0 64px #ff00ff, 0 0 32px #00ff9d;
+      border-color: #00ff9d;
+    }
+    @keyframes floaty {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-12px) scale(1.04); }
+    }
+    .header-image {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      width: 100%;
+    }
+    h2 {
+      font-family: 'Orbitron', 'Fira Code', monospace;
+      color: #00FF9D;
+      text-shadow: 0 0 8px #00FF9D, 0 0 18px #ff00ff;
+      border-bottom: 2px solid #ff00ff44;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: 1.5px;
+    }
+    p, li {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #D3FEE8;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 2px #00FF9D55;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    li {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    li::before {
+      content: ">";
+      color: #ff00ff;
+      position: absolute;
+      left: 0;
+      text-shadow: 0 0 8px #ff00ff;
+    }
+    blockquote {
+      border-left: 4px solid #ff00ff;
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: #ff00ff;
+      background: rgba(0, 255, 157, 0.05);
+      border-radius: 8px;
+      box-shadow: 0 0 15px #ff00ff44;
+      text-shadow: 0 0 8px #ff00ff;
+    }
+    .badges, .links {
+      text-align: center;
+      margin: 2rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .badges img, .links img {
+      margin: 0.4rem;
+      filter: drop-shadow(0 0 6px #00FF9D) drop-shadow(0 0 4px #ff00ff);
+      transition: transform 0.3s, filter 0.3s;
+    }
+    .badges img:hover, .links img:hover {
+      transform: scale(1.1) rotate(-2deg);
+      filter: drop-shadow(0 0 16px #ff00ff) drop-shadow(0 0 8px #00FF9D);
+    }
+    .intro-image img {
+      width: 100%;
+      max-width: 700px;
+      border-radius: 10px;
+      opacity: 0.85;
+      box-shadow: 0 0 24px #00FF9D99, 0 0 12px #ff00ff99;
+      margin-bottom: 2rem;
+      animation: floaty 4s ease-in-out infinite alternate;
+    }
+    .spacer {
+      height: 2rem;
+    }
+    a {
+      color: #00FF9D;
+      text-shadow: 0 0 4px #00FF9D;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+    a:hover {
+      color: #ff00ff;
+      text-shadow: 0 0 12px #ff00ff;
+    }
+    @media (max-width: 900px) {
+      .container {
+        max-width: 98vw;
+        padding: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrixCanvas"></canvas>
+  <div class="cyber-overlay"></div>
+
+  <div class="container">
+    <div class="profile-header">
+      <div class="header-image">
+        <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=40&pause=1000&color=00FF9D&center=true&vCenter=true&random=false&width=600&height=100&lines=Hi%2C+I'm+MsTimaj;Technology+for+Humanity;Building+a+Better+Future" alt="Typing SVG" />
+      </div>
+      <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+        <img src="Version_3_transperant.png" alt="Profile" class="profile-image" style="max-width: 200px; border-radius: 50%; box-shadow: 0 0 20px #00FF9D99; background: #111;" />
+      </div>
+    </div>
+
+    <div class="intro-image">
+      <img src="https://media.tenor.com/IeQ9YzjdRAAAAAAC/matrix-code.gif" alt="Matrix code rain" />
+    </div>
+
+    <h2>🌌 Vision & Mission</h2>
+    <p>👾 Building human-centered tech systems rooted in equity, environment, and ethical AI.</p>
+
+    <div class="spacer"></div>
+
+    <h2>🧠 Technical Strengths</h2>
+    <ul>
+      <li><strong>Machine Learning & AI</strong>: Classification, NLP, logic chains, prompt engineering</li>
+      <li><strong>Data Engineering</strong>: SQL, ETL pipelines, structured/unstructured datasets, transformation</li>
+      <li><strong>Full-Stack Development</strong>: HTML, CSS, JavaScript, Python, WordPress, REST APIs</li>
+      <li><strong>Tooling & Platforms</strong>: VS Code, Cursor, Claude, GPT-4o, Ollama, n8n, JupyterLab</li>
+      <li><strong>Security & Infrastructure</strong>: Network hardening, local dev with XAMPP, privacy-by-design</li>
+      <li><strong>Visualization</strong>: Data storytelling, charts, timelines, bias mapping</li>
+    </ul>
+
+    <h2>🛠️ Current Stack</h2>
+    <div class="badges">
+      <img src="https://img.shields.io/badge/HTML5-0A0A0F?style=for-the-badge&logo=html5&logoColor=00FF9D" />
+      <img src="https://img.shields.io/badge/CSS3-0A0A0F?style=for-the-badge&logo=css3&logoColor=00FF9D" />
+      <img src="https://img.shields.io/badge/JavaScript-0A0A0F?style=for-the-badge&logo=javascript&logoColor=00FF9D" />
+      <img src="https://img.shields.io/badge/Python-0A0A0F?style=for-the-badge&logo=python&logoColor=00FF9D" />
+      <img src="https://img.shields.io/badge/MySQL-0A0A0F?style=for-the-badge&logo=mysql&logoColor=00FF9D" />
+      <img src="https://img.shields.io/badge/AI/ML-0A0A0F?style=for-the-badge&logo=tensorflow&logoColor=00FF9D" />
+    </div>
+
+    <h2>😄 About Me</h2>
+    <p>🌍 Global Citizen | 🛠 System Reformer | 🎯 Mission-Driven</p>
+    <p>💬 I speak in code, but I build in empathy.</p>
+
+    <blockquote>
+      <em>"Tech should serve humanity — not the other way around."</em>
+    </blockquote>
+    <blockquote>
+      "Like someone left to debug a system they didn't build, I've had to trace the corruption and correct what others kept dismissing."
+    </blockquote>
+
+    <h2>📫 Connect</h2>
+    <div class="links">
+      <a href="mailto:connect@mstimaj.com">
+        <img src="https://img.shields.io/badge/Email-0A0A0F?style=for-the-badge&logo=gmail&logoColor=00FF9D" />
+      </a>
+      <a href="https://mstimaj.com" target="_blank">
+        <img src="https://img.shields.io/badge/Website-0A0A0F?style=for-the-badge&logo=About.me&logoColor=00FF9D" />
+      </a>
+      <a href="https://linkedin.com/in/mstimaj" target="_blank">
+        <img src="https://img.shields.io/badge/LinkedIn-0A0A0F?style=for-the-badge&logo=linkedin&logoColor=00FF9D" />
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    const letters = "01";
+    const fontSize = 22;
+    const columns = Math.floor(width / fontSize);
+    const drops = Array.from({ length: columns }).fill(1);
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+      ctx.fillRect(0, 0, width, height);
+      ctx.font = fontSize + "px 'Fira Code', monospace";
+      for (let i = 0; i < drops.length; i++) {
+        ctx.fillStyle = '#00FF9D';
+        ctx.shadowColor = '#00FF9D';
+        ctx.shadowBlur = 12;
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        ctx.shadowBlur = 0;
+        if (drops[i] * fontSize > height && Math.random() > 0.93) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+    setInterval(drawMatrix, 40);
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
