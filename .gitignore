@@ -1,0 +1,4 @@
+# Protect sensitive images
+Version_3_transperant.png
+*.png
+!README.md 

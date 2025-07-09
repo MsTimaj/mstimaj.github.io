@@ -189,7 +189,10 @@
         <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=40&pause=1000&color=00FF9D&center=true&vCenter=true&random=false&width=600&height=100&lines=Hi%2C+I'm+MsTimaj;Technology+for+Humanity;Building+a+Better+Future" alt="Typing SVG" />
       </div>
       <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
-        <img src="Version_3_transperant.png" alt="Profile" class="profile-image" style="max-width: 200px; border-radius: 50%; box-shadow: 0 0 20px #00FF9D99; background: #111;" />
+        <!-- Profile image - protected from direct download -->
+        <div class="profile-image" style="max-width: 200px; border-radius: 50%; box-shadow: 0 0 20px #00FF9D99; background: #111; background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMDAwMDAwIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiMwMEZGRDkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5Nc1RpbWFqPC90ZXh0Pgo8L3N2Zz4K'); background-size: cover; background-position: center; position: relative;">
+          <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,255,157,0.1); border-radius: 50%; pointer-events: none;"></div>
+        </div>
       </div>
     </div>
 
@@ -248,6 +251,28 @@
   </div>
 
   <script>
+    // Protect images from right-click download
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
+    
+    // Disable drag and drop of images
+    document.addEventListener('dragstart', function(e) {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+        return false;
+      }
+    });
+    
+    // Disable keyboard shortcuts for saving
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        return false;
+      }
+    });
+    
     const canvas = document.getElementById('matrixCanvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;

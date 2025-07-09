@@ -53,7 +53,7 @@ Building human-centered tech systems rooted in equity, environment, and ethical 
 ```
 mstimaj.github.io/
 ├── index.html              # Main portfolio page
-├── Version_3_transperant.png  # Profile image
+├── .gitignore              # Git ignore rules
 └── README.md               # This file
 ```
 
