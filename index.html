@@ -1,308 +1,240 @@
-<!DOCTYPE html>
+<!doctype html>
+<!-- guardian:skip -->
+<!-- Outbound URLs verified HTTP 200 on 2026-09-25. LinkedIn returns 999 to bots by design. -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MsTimaj — Cyber Architect</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      overflow-x: hidden;
-      min-height: 100vh;
-      min-width: 100vw;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
-      font-family: 'Fira Code', monospace;
-      color: #00FF9D;
-      position: relative;
-    }
-    #matrixCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      opacity: 0.7;
-      pointer-events: none;
-    }
-    .cyber-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      pointer-events: none;
-      z-index: 2;
-      background: repeating-linear-gradient(135deg, rgba(0,255,157,0.04) 0 2px, transparent 2px 40px);
-      mix-blend-mode: lighten;
-      animation: overlayMove 8s linear infinite alternate;
-    }
-    @keyframes overlayMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 100px 100px; }
-    }
-    .container {
-      position: relative;
-      z-index: 4;
-      max-width: 850px;
-      margin: auto;
-      padding: 2.5rem 2rem 2rem 2rem;
-      background: rgba(10, 10, 10, 0.92);
-      border-radius: 18px;
-      box-shadow: 0 0 40px #00FF9D55, 0 0 12px #ff00ff44;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border: 2px solid #00ff9d;
-      border-image: linear-gradient(90deg, #00ff9d 0%, #ff00ff 100%) 1;
-      overflow: hidden;
-      backdrop-filter: blur(2px);
-    }
-    .profile-header {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-    .profile-image {
-      max-width: 200px;
-      border-radius: 50%;
-      box-shadow: 0 0 32px #00FF9D, 0 0 12px #ff00ff;
-      background: #111;
-      border: 4px solid #ff00ff;
-      margin-bottom: 1.2rem;
-      animation: floaty 3.5s ease-in-out infinite alternate;
-      transition: box-shadow 0.3s;
-    }
-    .profile-image:hover {
-      box-shadow: 0 0 64px #ff00ff, 0 0 32px #00ff9d;
-      border-color: #00ff9d;
-    }
-    @keyframes floaty {
-      0% { transform: translateY(0) scale(1); }
-      100% { transform: translateY(-12px) scale(1.04); }
-    }
-    .header-image {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      width: 100%;
-    }
-    h2 {
-      font-family: 'Orbitron', 'Fira Code', monospace;
-      color: #00FF9D;
-      text-shadow: 0 0 8px #00FF9D, 0 0 18px #ff00ff;
-      border-bottom: 2px solid #ff00ff44;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.2rem;
-      letter-spacing: 1.5px;
-    }
-    p, li {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #D3FEE8;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 2px #00FF9D55;
-    }
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    li {
-      margin-bottom: 1rem;
-      padding-left: 1.5rem;
-      position: relative;
-    }
-    li::before {
-      content: ">";
-      color: #ff00ff;
-      position: absolute;
-      left: 0;
-      text-shadow: 0 0 8px #ff00ff;
-    }
-    blockquote {
-      border-left: 4px solid #ff00ff;
-      padding: 1rem 1.5rem;
-      margin: 2rem 0;
-      font-style: italic;
-      color: #ff00ff;
-      background: rgba(0, 255, 157, 0.05);
-      border-radius: 8px;
-      box-shadow: 0 0 15px #ff00ff44;
-      text-shadow: 0 0 8px #ff00ff;
-    }
-    .badges, .links {
-      text-align: center;
-      margin: 2rem 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-    }
-    .badges img, .links img {
-      margin: 0.4rem;
-      filter: drop-shadow(0 0 6px #00FF9D) drop-shadow(0 0 4px #ff00ff);
-      transition: transform 0.3s, filter 0.3s;
-    }
-    .badges img:hover, .links img:hover {
-      transform: scale(1.1) rotate(-2deg);
-      filter: drop-shadow(0 0 16px #ff00ff) drop-shadow(0 0 8px #00FF9D);
-    }
-    .intro-image img {
-      width: 100%;
-      max-width: 700px;
-      border-radius: 10px;
-      opacity: 0.85;
-      box-shadow: 0 0 24px #00FF9D99, 0 0 12px #ff00ff99;
-      margin-bottom: 2rem;
-      animation: floaty 4s ease-in-out infinite alternate;
-    }
-    .spacer {
-      height: 2rem;
-    }
-    a {
-      color: #00FF9D;
-      text-shadow: 0 0 4px #00FF9D;
-      transition: color 0.3s, text-shadow 0.3s;
-    }
-    a:hover {
-      color: #ff00ff;
-      text-shadow: 0 0 12px #ff00ff;
-    }
-    @media (max-width: 900px) {
-      .container {
-        max-width: 98vw;
-        padding: 1.2rem;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mstimaj</title>
+<meta name="description" content="Fatima Jalloh, known as Mstimaj. I build AI systems and explain them in plain language. Retrieval, automation, and the guardrails that keep them honest.">
+<meta property="og:title" content="Mstimaj">
+<meta property="og:description" content="I build AI systems and explain them in plain language.">
+<meta property="og:type" content="profile">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+/* Design tokens lifted from the mstimaj.com v7 theme so the three surfaces
+   (mstimaj.com, fatimajalloh.com, and this page) read as one person. */
+:root{
+  --s-1:#040807; --s0:#070d0b; --s1:#0c1614; --s2:#12201d; --s3:#1a2b27; --s4:#243733;
+  --fg:#e8f0ec; --fg80:rgba(232,240,236,.80); --fg68:rgba(232,240,236,.68);
+  --fg58:rgba(232,240,236,.58);
+  --b1:rgba(232,240,236,.08); --b2:rgba(232,240,236,.13); --b3:rgba(232,240,236,.19);
+  --green:#7ee0a6; --cyan:#5cc8ff; --clay:#ffc98a;
+  --disp:"Fraunces",Georgia,serif;
+  --read:"Newsreader",Georgia,serif;
+  --ui:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--s0);color:var(--fg);
+  font:400 17px/1.65 var(--read);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:var(--green);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:4px}
+
+/* Atmosphere: a slow green wash and a fine grain. No matrix rain. */
+.atmos{position:fixed;inset:0;z-index:0;pointer-events:none}
+.atmos-glow{
+  position:absolute;inset:-12%;opacity:.55;
+  background:
+    radial-gradient(40rem 26rem at 18% 4%, rgba(126,224,166,.16), transparent 64%),
+    radial-gradient(34rem 24rem at 86% 26%, rgba(92,200,255,.10), transparent 62%),
+    radial-gradient(30rem 22rem at 54% 96%, rgba(255,201,138,.07), transparent 64%);
+  animation:drift 32s ease-in-out infinite alternate;
+}
+@keyframes drift{to{transform:translate3d(0,-30px,0) scale(1.06)}}
+.atmos-grain{
+  position:absolute;inset:0;opacity:.14;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+}
+
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 22px}
+
+/* ---------- header ---------- */
+header{padding:86px 0 8px;display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.portrait{position:relative;flex:none}
+.portrait img{
+  width:132px;height:132px;border-radius:50%;display:block;
+  border:1px solid var(--b3);
+}
+.portrait::after{
+  content:"";position:absolute;inset:-14px;border-radius:50%;z-index:-1;
+  background:radial-gradient(closest-side,rgba(126,224,166,.22),transparent 72%);
+}
+.who{flex:1 1 260px;min-width:0}
+h1{
+  font:600 clamp(34px,6vw,50px)/1.05 var(--disp);letter-spacing:-.02em;margin:0 0 10px;
+  background:linear-gradient(96deg,var(--fg) 20%,var(--green) 62%,var(--cyan) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.tagline{font-size:18.5px;line-height:1.55;color:var(--fg80);margin:0 0 16px;max-width:52ch}
+.meta{font:500 12.5px/1.6 var(--mono);color:var(--fg58);letter-spacing:.03em;margin:0}
+
+/* ---------- sections ---------- */
+section{padding:56px 0 0}
+h2{
+  font:500 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--green);margin:0 0 18px;
+}
+p{color:var(--fg80);margin:0 0 16px}
+
+.rows{display:grid;gap:1px;background:var(--b1);border:1px solid var(--b1);border-radius:12px;overflow:hidden}
+.row{background:var(--s1);padding:16px 18px;display:grid;gap:4px}
+.row b{font:500 13px/1.4 var(--mono);color:var(--green);letter-spacing:.04em}
+.row span{font-size:15.5px;color:var(--fg68);line-height:1.6}
+
+.cards{display:grid;gap:12px}
+@media(min-width:660px){.cards{grid-template-columns:1fr 1fr}}
+.card{
+  display:block;background:var(--s1);border:1px solid var(--b1);border-radius:12px;
+  padding:18px;transition:border-color .2s var(--ease),transform .2s var(--ease);
+}
+.card:hover{border-color:rgba(126,224,166,.4);transform:translateY(-2px);text-decoration:none}
+.card h3{font:600 17px/1.3 var(--disp);margin:0 0 7px;color:var(--fg);letter-spacing:-.01em}
+.card p{margin:0;font-size:15px;color:var(--fg58);line-height:1.55}
+
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.links a{
+  display:inline-flex;align-items:center;gap:8px;
+  font:500 14.5px/1 var(--ui);color:var(--fg);
+  background:var(--s2);border:1px solid var(--b2);border-radius:999px;padding:11px 17px;
+  transition:border-color .18s var(--ease),transform .18s var(--ease);
+}
+.links a:hover{border-color:var(--green);transform:translateY(-2px);text-decoration:none}
+.links i{width:6px;height:6px;border-radius:50%;background:var(--green);flex:none}
+
+blockquote{
+  margin:0;padding:18px 22px;border-left:2px solid var(--green);
+  background:var(--s1);border-radius:0 12px 12px 0;
+  font:400 18px/1.6 var(--read);color:var(--fg80);
+}
+
+footer{
+  margin-top:76px;padding:24px 0 54px;border-top:1px solid var(--b1);
+  font:500 12.5px/1.7 var(--mono);color:var(--fg58);
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .atmos-glow{animation:none}
+  *{transition-duration:.01ms!important}
+}
+</style>
 </head>
 <body>
-  <canvas id="matrixCanvas"></canvas>
-  <div class="cyber-overlay"></div>
 
-  <div class="container">
-    <div class="profile-header">
-      <div class="header-image">
-        <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=40&pause=1000&color=00FF9D&center=true&vCenter=true&random=false&width=600&height=100&lines=Hi%2C+I'm+MsTimaj;Technology+for+Humanity;Building+a+Better+Future" alt="Typing SVG" />
+<div class="atmos" aria-hidden="true">
+  <div class="atmos-glow"></div>
+  <div class="atmos-grain"></div>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <div class="portrait">
+      <img src="avatar.webp" alt="Mstimaj" width="132" height="132">
+    </div>
+    <div class="who">
+      <h1>Mstimaj</h1>
+      <p class="tagline">I build AI systems and run them in production, then I explain them
+        in plain language to the people who have to live with them.</p>
+      <p class="meta">FATIMA JALLOH &middot; CONNECTICUT &middot; B.S. INFORMATION TECHNOLOGY</p>
+    </div>
+  </header>
+
+  <section>
+    <h2>What I actually work on</h2>
+    <div class="rows">
+      <div class="row">
+        <b>AI systems</b>
+        <span>Retrieval augmented generation, agent workflows, custom MCP servers, prompt and
+          context engineering, and the evaluation and guardrails that stop a model answering
+          when it should not.</span>
       </div>
-      <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
-        <!-- Profile image - protected from direct download -->
-        <div class="profile-image" style="max-width: 200px; border-radius: 50%; box-shadow: 0 0 20px #00FF9D99; background: #111; background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMDAwMDAwIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiMwMEZGRDkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5Nc1RpbWFqPC90ZXh0Pgo8L3N2Zz4K'); background-size: cover; background-position: center; position: relative;">
-          <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,255,157,0.1); border-radius: 50%; pointer-events: none;"></div>
-        </div>
+      <div class="row">
+        <b>Languages</b>
+        <span>Python, JavaScript, TypeScript, PHP, SQL, HTML and CSS.</span>
+      </div>
+      <div class="row">
+        <b>Building on</b>
+        <span>WordPress theme and plugin development, React, React Native with Expo, Next.js,
+          Supabase, Vercel.</span>
+      </div>
+      <div class="row">
+        <b>Data</b>
+        <span>MySQL including full-text indexing, PostgreSQL, SQLite. Schema design, migrations,
+          and write paths that refuse to lose a record.</span>
+      </div>
+      <div class="row">
+        <b>Integration and automation</b>
+        <span>REST APIs, the Claude and OpenAI APIs, Gemini, Stripe webhooks, the Meta, X and
+          YouTube APIs through Publer, n8n and Zapier.</span>
+      </div>
+      <div class="row">
+        <b>Daily tools</b>
+        <span>Claude Code, OpenAI Codex, Git, VS Code, XAMPP.</span>
       </div>
     </div>
+  </section>
 
-    <div class="intro-image">
-      <img src="https://media.tenor.com/IeQ9YzjdRAAAAAAC/matrix-code.gif" alt="Matrix code rain" />
+  <section>
+    <h2>Things you can open</h2>
+    <div class="cards">
+      <a class="card" href="https://mstimaj.com">
+        <h3>The Human Algorithm</h3>
+        <p>Artificial intelligence explained in plain language, for people with no technical
+          background. Forty-four articles, each shipping with a machine the reader can break.</p>
+      </a>
+      <a class="card" href="https://fatimajalloh.com">
+        <h3>Portfolio</h3>
+        <p>A retrieval system you can type into, running over my published writing, with the
+          architecture shown and the failure that set the rules.</p>
+      </a>
+      <a class="card" href="https://github.com/MsTimaj/Claude_Code_CLI_Cheatsheet">
+        <h3>Claude Code CLI Cheatsheet</h3>
+        <p>A beginner guide to running an AI agent in a terminal, written for people who have
+          never used one. No coding experience assumed.</p>
+      </a>
+      <!-- Not an <a>: it holds two links, and HTML forbids an anchor inside an anchor.
+           Nesting them broke the card and spilled its text onto the page. -->
+      <div class="card">
+        <h3>Simple flows</h3>
+        <p>Working automations kept small enough to lift and adapt rather than study.
+          <a href="https://github.com/MsTimaj/n8n-mstimaj-simpleflows">n8n</a> and
+          <a href="https://github.com/MsTimaj/zap-mstimaj-simpleflows">Zapier</a>.</p>
+      </div>
     </div>
+  </section>
 
-    <h2>🌌 Vision & Mission</h2>
-    <p>👾 Building human-centered tech systems rooted in equity, environment, and ethical AI.</p>
+  <section>
+    <h2>How I think about it</h2>
+    <blockquote>A demo and a Tuesday are different kinds of things. One runs once, for you, with
+      the good input. The other runs every day, for strangers, on a budget, and has to fail in a
+      way somebody can see.</blockquote>
+  </section>
 
-    <div class="spacer"></div>
-
-    <h2>🧠 Technical Strengths</h2>
-    <ul>
-      <li><strong>Machine Learning & AI</strong>: Classification, NLP, logic chains, prompt engineering</li>
-      <li><strong>Data Engineering</strong>: SQL, ETL pipelines, structured/unstructured datasets, transformation</li>
-      <li><strong>Full-Stack Development</strong>: HTML, CSS, JavaScript, Python, WordPress, REST APIs</li>
-      <li><strong>Tooling & Platforms</strong>: VS Code, Cursor, Claude, GPT-4o, Ollama, n8n, JupyterLab</li>
-      <li><strong>Security & Infrastructure</strong>: Network hardening, local dev with XAMPP, privacy-by-design</li>
-      <li><strong>Visualization</strong>: Data storytelling, charts, timelines, bias mapping</li>
-    </ul>
-
-    <h2>🛠️ Current Stack</h2>
-    <div class="badges">
-      <img src="https://img.shields.io/badge/HTML5-0A0A0F?style=for-the-badge&logo=html5&logoColor=00FF9D" />
-      <img src="https://img.shields.io/badge/CSS3-0A0A0F?style=for-the-badge&logo=css3&logoColor=00FF9D" />
-      <img src="https://img.shields.io/badge/JavaScript-0A0A0F?style=for-the-badge&logo=javascript&logoColor=00FF9D" />
-      <img src="https://img.shields.io/badge/Python-0A0A0F?style=for-the-badge&logo=python&logoColor=00FF9D" />
-      <img src="https://img.shields.io/badge/MySQL-0A0A0F?style=for-the-badge&logo=mysql&logoColor=00FF9D" />
-      <img src="https://img.shields.io/badge/AI/ML-0A0A0F?style=for-the-badge&logo=tensorflow&logoColor=00FF9D" />
-    </div>
-
-    <h2>😄 About Me</h2>
-    <p>🌍 Global Citizen | 🛠 System Reformer | �� Mission-Driven</p>
-    <p>💬 I speak in code, but I build in empathy.</p>
-
-    <blockquote>
-      <em>"Tech should serve humanity — not the other way around."</em>
-    </blockquote>
-    <blockquote>
-      "Like someone left to debug a system they didn't build, I've had to trace the corruption and correct what others kept dismissing."
-    </blockquote>
-
-    <h2>📫 Connect</h2>
+  <section>
+    <h2>Elsewhere</h2>
     <div class="links">
-      <a href="mailto:connect@mstimaj.com">
-        <img src="https://img.shields.io/badge/Email-0A0A0F?style=for-the-badge&logo=gmail&logoColor=00FF9D" />
-      </a>
-      <a href="https://mstimaj.com" target="_blank">
-        <img src="https://img.shields.io/badge/Website-0A0A0F?style=for-the-badge&logo=About.me&logoColor=00FF9D" />
-      </a>
-      <a href="https://linkedin.com/in/mstimaj" target="_blank">
-        <img src="https://img.shields.io/badge/LinkedIn-0A0A0F?style=for-the-badge&logo=linkedin&logoColor=00FF9D" />
-      </a>
+      <a href="https://mstimaj.com"><i></i>mstimaj.com</a>
+      <a href="https://fatimajalloh.com"><i></i>fatimajalloh.com</a>
+      <a href="https://www.linkedin.com/in/fatima-jalloh1"><i></i>LinkedIn</a>
+      <a href="mailto:connect@mstimaj.com"><i></i>connect@mstimaj.com</a>
     </div>
-  </div>
+  </section>
 
-  <script>
-    // Protect images from right-click download
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      return false;
-    });
-    
-    // Disable drag and drop of images
-    document.addEventListener('dragstart', function(e) {
-      if (e.target.tagName === 'IMG') {
-        e.preventDefault();
-        return false;
-      }
-    });
-    
-    // Disable keyboard shortcuts for saving
-    document.addEventListener('keydown', function(e) {
-      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
-        e.preventDefault();
-        return false;
-      }
-    });
-    
-    const canvas = document.getElementById('matrixCanvas');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-    const letters = "01";
-    const fontSize = 22;
-    const columns = Math.floor(width / fontSize);
-    const drops = Array.from({ length: columns }).fill(1);
-    function drawMatrix() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
-      ctx.fillRect(0, 0, width, height);
-      ctx.font = fontSize + "px 'Fira Code', monospace";
-      for (let i = 0; i < drops.length; i++) {
-        ctx.fillStyle = '#00FF9D';
-        ctx.shadowColor = '#00FF9D';
-        ctx.shadowBlur = 12;
-        const text = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        ctx.shadowBlur = 0;
-        if (drops[i] * fontSize > height && Math.random() > 0.93) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    }
-    setInterval(drawMatrix, 40);
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-  </script>
+  <footer>
+    <div>Forward &rarr; Upward &uarr; Onward &nearr;</div>
+    <div>Mstimaj Tech and AI LLC &middot; Connecticut</div>
+  </footer>
+
+</div>
 </body>
 </html>
